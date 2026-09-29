@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>모든 원에 숨은 수, 파이</title>
+  <link rel="stylesheet" href="css/player.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="stage" data-width="1920" data-height="1080">
+    <!-- persistent layers -->
+    <div class="bg"></div>
+    <div class="grid" id="grid"></div>
+
+    <!-- s01 · hook: a compass draws a circle; circles of every size share one number -->
+    <section class="scene" id="s01">
+      <div class="wrap">
+        <svg class="geo" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+          <line id="s01-arm" class="arm in" x1="960" y1="500" x2="1160" y2="500"/>
+          <circle id="s01-earth" class="ring in" cx="1720" cy="160" r="560"/>
+          <circle id="s01-coin" class="ring in" cx="300" cy="694" r="26"/>
+          <circle id="s01-c2" class="ring in" cx="470" cy="660" r="60"/>
+          <circle id="s01-c4" class="ring in" cx="1000" cy="550" r="170"/>
+          <circle id="s01-main" class="ring in" cx="960" cy="500" r="200"/>
+          <circle id="s01-dot" class="dot" cx="960" cy="500" r="8"/>
+        </svg>
+        <div class="lbl in" id="s01-lcoin">동전</div>
+        <div class="lbl in" id="s01-learth">지구</div>
+        <div class="in" id="s01-title">원주율</div>
+        <div class="in" id="s01-pi">π</div>
+      </div>
+    </section>
+
+    <!-- s02 · the two lengths: diameter (cyan) and circumference (amber) -->
+    <section class="scene" id="s02">
+      <div class="wrap">
+        <svg class="geo" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+          <circle id="s02-ring" class="ring in" cx="620" cy="540" r="260"/>
+          <circle id="s02-rim" class="rim in" cx="620" cy="540" r="260"/>
+          <line id="s02-dia" class="dia in" x1="360" y1="540" x2="880" y2="540"/>
+          <circle id="s02-lead" class="lead in" cx="880" cy="540" r="11"/>
+          <circle id="s02-center" class="dot in" cx="620" cy="540" r="8"/>
+        </svg>
+        <div class="term amber in" id="s02-trim">둘레</div>
+        <div class="cap in" id="s02-crim">원을 한 바퀴<br>두른 길이</div>
+        <div class="term cyan in" id="s02-tdia">지름</div>
+        <div class="cap in" id="s02-cdia">중심을 지나<br>끝에서 끝까지</div>
+        <div class="fbar in" id="s02-bar"></div>
+        <div class="term in" id="s02-q">=&nbsp;<span class="amber" id="s02-qmark">?</span></div>
+      </div>
+    </section>
+
+    <!-- s03 · roll the painted circle, then measure the line with its own diameter -->
+    <section class="scene" id="s03">
+      <div class="wrap" id="s03-wrap">
+        <div class="cam" id="s03-cam">
+          <svg class="geo" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+            <line id="s03-floor" class="floor in" x1="120" y1="640" x2="1800" y2="640"/>
+            <line id="s03-tick0" class="tick in" x1="426" y1="652" x2="426" y2="668"/>
+            <line id="s03-tick1" class="tick in" x1="1494.14" y1="652" x2="1494.14" y2="668"/>
+            <path id="s03-brace" class="brace in" d="M426,664 L426,678 L1494.14,678 L1494.14,664"/>
+            <circle id="s03-ring" class="ring" cx="426" cy="470" r="170"/>
+            <path id="s03-roll" class="paint" d="M0,0"/>
+            <line id="s03-rem" class="remglow in" x1="1446" y1="640" x2="1494.14" y2="640"/>
+            <line id="s03-b2" class="stick" x1="426" y1="626" x2="766" y2="626"/>
+            <line id="s03-b3" class="stick" x1="766" y1="626" x2="1106" y2="626"/>
+            <line id="s03-spoke" class="stick" x1="256" y1="470" x2="596" y2="470"/>
+            <circle id="s03-hub" class="dot" cx="426" cy="470" r="8"/>
+          </svg>
+          <div class="cnt in" id="s03-n1">1</div>
+          <div class="cnt in" id="s03-n2">2</div>
+          <div class="cnt in" id="s03-n3">3</div>
+          <div class="cnt amber in" id="s03-n4">0.14</div>
+          <div class="lbl amber in" id="s03-lrim">둘레</div>
+        </div>
+        <div class="amber in" id="s03-little">조금</div>
+        <div class="eq" id="s03-eq">
+          <span class="amber in">둘레</span><span class="op in">=</span><span class="cyan in">지름</span><span class="op in">×</span><span class="slot in" id="s03-slot"><span class="alt" id="s03-a">3<span class="op">+</span><span class="amber">조금</span></span><span class="alt in" id="s03-b"><span class="tnum" id="s03-num">3.00</span></span><span class="alt amber in" id="s03-c">π</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- s04 · twice the circle, twice both lengths: the ratio never changes -->
+    <section class="scene" id="s04">
+      <div class="wrap">
+        <svg class="geo" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+          <circle id="s04-ca" class="ring in" cx="260" cy="330" r="70"/>
+          <line id="s04-da" class="dia thin in" x1="190" y1="330" x2="330" y2="330"/>
+          <line id="s04-la" class="paint8 in" x1="400" y1="400" x2="839.82" y2="400"/>
+          <line id="s04-a1" class="stick in" x1="402" y1="388" x2="538" y2="388"/>
+          <line id="s04-a2" class="stick in" x1="542" y1="388" x2="678" y2="388"/>
+          <line id="s04-a3" class="stick in" x1="682" y1="388" x2="818" y2="388"/>
+          <circle id="s04-cb" class="ring in" cx="260" cy="700" r="140"/>
+          <line id="s04-db" class="dia in" x1="120" y1="700" x2="400" y2="700"/>
+          <line id="s04-lb" class="paint8 in" x1="400" y1="840" x2="1279.65" y2="840"/>
+          <line id="s04-b1" class="stick in" x1="402" y1="828" x2="678" y2="828"/>
+          <line id="s04-b2" class="stick in" x1="682" y1="828" x2="958" y2="828"/>
+          <line id="s04-b3" class="stick in" x1="962" y1="828" x2="1238" y2="828"/>
+          <line id="s04-g1" class="ghost in" x1="400" y1="868" x2="837.82" y2="868"/>
+          <line id="s04-g2" class="ghost in" x1="841.82" y1="868" x2="1279.65" y2="868"/>
+        </svg>
+        <div class="x2 cyan in" id="s04-x2d">지름 × 2</div>
+        <div class="x2 amber in" id="s04-x2c">둘레 × 2</div>
+        <div class="f110 amber in" id="s04-w1">둘레</div>
+        <div class="f110 in" id="s04-eqs">=</div>
+        <div class="f110 cyan in" id="s04-w2">지름</div>
+        <div class="f110 in" id="s04-tm">×</div>
+        <div class="f110 amber in" id="s04-pi">π</div>
+        <div class="fbar in" id="s04-bar"></div>
+      </div>
+    </section>
+
+    <!-- s05 · Archimedes traps the circle between polygons -->
+    <section class="scene" id="s05">
+      <div class="wrap">
+        <div class="eq in" id="s05-q"><span class="amber">π</span><span class="op">=</span><span>3.</span><span class="amber">14</span><span class="qm">?</span><span class="qm">?</span><span class="qm">?</span></div>
+        <svg class="geo" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+          <g id="s05-spokes">
+            <line class="spoke in" x1="600" y1="560" x2="600" y2="260"/>
+            <line class="spoke in" x1="600" y1="560" x2="859.81" y2="410"/>
+            <line class="spoke in" x1="600" y1="560" x2="859.81" y2="710"/>
+            <line class="spoke in" x1="600" y1="560" x2="600" y2="860"/>
+            <line class="spoke in" x1="600" y1="560" x2="340.19" y2="710"/>
+            <line class="spoke in" x1="600" y1="560" x2="340.19" y2="410"/>
+          </g>
+          <path id="s05-in" class="poly in" d="M0,0"/>
+          <path id="s05-out" class="poly in" d="M0,0"/>
+          <circle id="s05-circ" class="rim5 in" cx="600" cy="560" r="300"/>
+          <line id="s05-dia" class="dia in" x1="300" y1="560" x2="900" y2="560"/>
+          <line id="s05-axis" class="axis in" x1="1120" y1="680" x2="1760" y2="680"/>
+          <g id="s05-ticks" class="in"></g>
+          <rect id="s05-band" class="band in" x="1120" y="668" width="0" height="24"/>
+        </svg>
+        <div class="kick in" id="s05-kick">아르키메데스 <span class="muted">· 기원전 3세기</span></div>
+        <div class="rowlbl in" id="s05-rin">안쪽 · <span id="s05-nin">정육각형</span></div>
+        <div class="rowval in" id="s05-vin"><span class="cyan">지름</span><span class="op">×</span><span class="tnum" id="s05-lo">3</span></div>
+        <div class="rowlbl in" id="s05-rout">바깥 · <span id="s05-nout">정사각형</span></div>
+        <div class="rowval in" id="s05-vout"><span class="cyan">지름</span><span class="op">×</span><span class="tnum" id="s05-hi">4</span></div>
+        <div class="nl in" id="s05-l3">3</div>
+        <div class="nl in" id="s05-l4">4</div>
+        <div class="amber in" id="s05-pim">π</div>
+        <div class="in" id="s05-res"><span class="tnum">3.141</span><span class="op">&lt;</span><span class="amber">π</span><span class="op">&lt;</span><span class="tnum">3.143</span></div>
+      </div>
+    </section>
+
+    <!-- s06 · the digits never end, never repeat; the letter π -->
+    <section class="scene" id="s06">
+      <div class="wrap">
+        <div class="in" id="s06-wall"></div>
+        <div class="in" id="s06-tw">
+          <div class="tnum" id="s06-tick"></div>
+          <div id="s06-line"></div>
+        </div>
+        <div class="edgefade"></div>
+        <div class="in" id="s06-rep"><span class="cyan">1 ÷ 7</span> = 0.<span class="g">142857</span> <span class="g">142857</span> <span class="g">142857</span> …</div>
+        <div class="tnum amber in" id="s06-count">1</div>
+        <div class="in" id="s06-unit">자리 이상</div>
+        <div class="in" id="s06-greek"><span id="s06-gpi">π</span><span id="s06-grest">ερίμετρος</span></div>
+        <div class="in" id="s06-mean">그리스어 ‘<span class="amber">둘레</span>’</div>
+      </div>
+    </section>
+
+    <!-- s07 · area: slice the circle like a pizza and unroll it into a rectangle -->
+    <section class="scene" id="s07">
+      <div class="cam" id="s07-cam">
+        <svg class="geo" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+          <g id="s07-grow">
+            <circle id="s07-disk" class="disk" cx="960" cy="470" r="220"/>
+            <g id="s07-la"></g>
+            <g id="s07-lb"></g>
+          </g>
+          <rect id="s07-rect" class="dash in" x="614.42" y="360" width="691.15" height="220"/>
+          <path id="s07-lbr" class="brace cyanb in" d="M598,360 L586,360 L586,580 L598,580"/>
+          <path id="s07-tbr" class="brace in" d="M614.42,342 L614.42,330 L1305.58,330 L1305.58,342"/>
+          <circle id="s07-rim" class="rim in" cx="960" cy="470" r="220"/>
+          <line id="s07-dia" class="dia in" x1="740" y1="470" x2="1180" y2="470"/>
+          <circle id="s07-orb" class="orb in" cx="960" cy="250" r="8"/>
+        </svg>
+      </div>
+      <div class="in" id="s07-area">넓이</div>
+      <div class="cyan in" id="s07-lr">반지름</div>
+      <div id="s07-tl">
+        <span class="alt in" id="s07-ta"><span class="amber">둘레의 절반</span></span>
+        <span class="alt in" id="s07-tb"><span class="amber">π</span> × <span class="cyan">반지름</span></span>
+      </div>
+      <div class="eq" id="s07-eq">
+        <span class="in">넓이</span><span class="op in">=</span><span class="slot in" id="s07-slot"><span class="alt" id="s07-a"><span class="amber">가로</span><span class="op">×</span><span class="cyan">세로</span></span><span class="alt in" id="s07-b"><span class="amber">π</span><span class="op">×</span><span class="cyan">반지름</span><span class="op">×</span><span class="cyan">반지름</span></span><span class="alt in" id="s07-c"><span class="amber">π</span><span class="op">×</span><span class="cyan">반지름²</span></span></span>
+      </div>
+    </section>
+
+    <!-- s08 · close: π = circumference ÷ diameter -->
+    <section class="scene" id="s08">
+      <div class="eq in" id="s08-eq"><span class="amber">π</span><span class="op">=</span><span class="amber">둘레</span><span class="op">÷</span><span class="cyan">지름</span></div>
+      <div class="amber in" id="s08-pi">π</div>
+      <div class="tnum in" id="s08-digits">3.14159265358979323846…</div>
+      <div class="in" id="s08-title">모든 원에 숨은 수, π</div>
+    </section>
+
+    <div class="vignette"></div>
+    <svg class="grain" width="1920" height="1080" aria-hidden="true"><filter id="grainF"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/></filter><rect width="100%" height="100%" filter="url(#grainF)"/></svg>
+  </div>
+
+  <script src="vendor/gsap/gsap.min.js"></script>
+  <script src="vendor/gsap/SplitText.min.js"></script>
+  <script src="vendor/gsap/CustomEase.min.js"></script>
+  <script src="vendor/gsap/CustomBounce.min.js"></script>
+  <script src="vendor/gsap/CustomWiggle.min.js"></script>
+  <script src="vendor/gsap/DrawSVGPlugin.min.js"></script>
+  <script src="vendor/gsap/MorphSVGPlugin.min.js"></script>
+  <script src="vendor/gsap/MotionPathPlugin.min.js"></script>
+  <script src="vendor/gsap/TextPlugin.min.js"></script>
+  <script src="vendor/gsap/ScrambleTextPlugin.min.js"></script>
+  <script src="js/cues.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/scenes.js"></script>
+</body>
+</html>

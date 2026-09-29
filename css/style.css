@@ -1,0 +1,219 @@
+/* style.css — art direction: "the colour promise".
+   cyan = diameter (and radius) · amber = circumference (and π) · chalk white on ink navy.
+   All sizes are stage pixels (1920×1080). Widths of formula slots come from Pretendard's metrics. */
+
+:root {
+  --bg: #0a0e17;
+  --fg: #f3eee4;
+  --muted: #8c93a3;
+  --accent: #ffb547;     /* 둘레 · π */
+  --accent-2: #58cff5;   /* 지름 · 반지름 */
+  --glow: #ffe0a3;
+
+  --font: 'Pretendard', system-ui, sans-serif;
+  --safe: 96px;
+}
+
+#stage {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+}
+
+/* ---------- persistent layers ---------- */
+.bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1300px 820px at 50% 44%, #131b2c 0%, #0a0e17 62%, #06080e 100%);
+}
+.grid {
+  position: absolute;
+  left: -240px;
+  top: -240px;
+  width: 2460px;
+  height: 1860px;
+  background-image: radial-gradient(rgba(243, 238, 228, 0.085) 1.6px, transparent 1.9px);
+  background-size: 48px 48px;
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 48%, transparent 58%, rgba(0, 0, 0, 0.42) 100%);
+}
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ---------- shared ---------- */
+.in { opacity: 0; visibility: hidden; }
+.wrap, .cam { position: absolute; inset: 0; }
+svg.geo { position: absolute; left: 0; top: 0; overflow: visible; }
+
+.amber { color: var(--accent); }
+.cyan { color: var(--accent-2); }
+.muted { color: var(--muted); }
+.tnum { font-variant-numeric: tabular-nums; }
+
+.eq {
+  position: absolute;
+  left: 0;
+  width: 1920px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+.op { display: inline-block; margin: 0 0.24em; }
+.slot { position: relative; display: inline-block; height: 1em; }
+.alt { position: absolute; left: 0; top: 0; display: inline-block; white-space: nowrap; }
+
+/* SVG strokes */
+.ring { fill: none; stroke: var(--fg); stroke-width: 3.5; }
+.arm { stroke: var(--muted); stroke-width: 2.5; stroke-linecap: round; }
+.dot { fill: var(--fg); }
+.lead { fill: var(--accent); }
+.rim { fill: none; stroke: var(--accent); stroke-width: 7; stroke-linecap: round; }
+.rim5 { fill: none; stroke: var(--accent); stroke-width: 5; }
+.dia { stroke: var(--accent-2); stroke-width: 7; stroke-linecap: round; }
+.dia.thin { stroke-width: 5; }
+.stick { stroke: var(--accent-2); stroke-width: 8; stroke-linecap: butt; }
+.paint { fill: none; stroke: var(--accent); stroke-width: 10; stroke-linejoin: round; stroke-linecap: butt; }
+.paint8 { stroke: var(--accent); stroke-width: 8; stroke-linecap: butt; }
+.floor { stroke: rgba(243, 238, 228, 0.28); stroke-width: 2; }
+.tick { stroke: rgba(243, 238, 228, 0.75); stroke-width: 2.5; }
+.brace { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; }
+.brace.cyanb { stroke: var(--accent-2); }
+.remglow { stroke: var(--glow); stroke-width: 16; }
+.ghost { stroke: var(--accent); stroke-width: 5; stroke-opacity: 0.6; }
+.poly { fill: none; stroke: var(--fg); stroke-width: 3; stroke-linejoin: round; }
+.spoke { stroke: var(--accent-2); stroke-width: 3; stroke-linecap: round; stroke-opacity: 0.85; }
+.axis { stroke: rgba(243, 238, 228, 0.55); stroke-width: 2.5; }
+.axtick { stroke: rgba(243, 238, 228, 0.45); stroke-width: 2; }
+.band { fill: rgba(255, 181, 71, 0.35); stroke: var(--accent); stroke-width: 2; }
+.disk { fill: rgba(255, 181, 71, 0.16); stroke: var(--accent); stroke-width: 3; }
+.w-fill { fill: var(--accent); fill-opacity: 0.16; }
+.w-edge { fill: none; stroke: var(--fg); stroke-width: 1.4; stroke-linejoin: round; }
+.w-crust { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+.dash { fill: none; stroke: var(--fg); stroke-width: 2; stroke-dasharray: 10 9; stroke-opacity: 0.7; }
+.orb { fill: var(--glow); }
+
+/* ---------- s01 · hook ---------- */
+.lbl { position: absolute; width: 100px; text-align: center; font-size: 36px; font-weight: 600; line-height: 1.2; }
+#s01-lcoin { left: 250px; top: 748px; }
+#s01-learth { left: 1670px; top: 748px; }
+#s01-title {
+  position: absolute; left: 0; width: 1920px; top: 290px;
+  text-align: center; font-size: 64px; font-weight: 600; line-height: 1; letter-spacing: 0.08em;
+}
+#s01-pi {
+  position: absolute; left: 0; width: 1920px; top: 360px;
+  text-align: center; font-size: 380px; font-weight: 500; line-height: 1;
+  color: var(--accent); transform-origin: 50% 59%;
+}
+
+/* ---------- s02 · two lengths ---------- */
+.term { position: absolute; font-size: 128px; font-weight: 750; line-height: 1; letter-spacing: -0.02em; white-space: nowrap; }
+#s02-trim { left: 1120px; top: 394px; }
+#s02-tdia { left: 1120px; top: 558px; }
+.cap { position: absolute; width: 400px; font-size: 32px; font-weight: 500; line-height: 1.35; color: var(--muted); }
+#s02-crim { left: 1390px; top: 415px; }
+#s02-cdia { left: 1390px; top: 579px; }
+.fbar { position: absolute; height: 6px; border-radius: 3px; background: var(--fg); transform-origin: 0% 50%; }
+#s02-bar { left: 1100px; top: 537px; width: 262px; }
+#s02-q { left: 1400px; top: 467px; letter-spacing: 0; }
+#s02-qmark { display: inline-block; transform-origin: 50% 55%; }
+
+/* ---------- s03 · roll and measure ---------- */
+.cnt { position: absolute; top: 548px; width: 100px; margin-left: -50px; text-align: center; font-size: 52px; font-weight: 700; line-height: 1; }
+#s03-n1 { left: 596px; }
+#s03-n2 { left: 936px; }
+#s03-n3 { left: 1276px; }
+#s03-n4 { left: 1470px; top: 556px; width: 140px; margin-left: -70px; font-size: 40px; font-variant-numeric: tabular-nums; }
+#s03-lrim { left: 910px; top: 692px; font-size: 44px; font-weight: 700; }
+#s03-little { position: absolute; left: 1370px; top: 440px; width: 200px; text-align: center; font-size: 64px; font-weight: 700; line-height: 1; }
+#s03-eq { top: 300px; font-size: 96px; }
+#s03-slot { width: 336px; }
+
+/* ---------- s04 · scale ---------- */
+.x2 { position: absolute; left: 1320px; font-size: 40px; font-weight: 700; line-height: 1; white-space: nowrap; }
+#s04-x2d { top: 788px; }
+#s04-x2c { top: 840px; }
+.f110 { position: absolute; top: 505px; font-size: 110px; font-weight: 700; line-height: 1; white-space: nowrap; }
+#s04-w1 { left: 1096px; }
+#s04-eqs { left: 1311px; }
+#s04-w2 { left: 1408px; }
+#s04-tm { left: 1623px; }
+#s04-pi { left: 1720px; }
+#s04-bar { left: 1320px; top: 565px; width: 210px; }
+
+/* ---------- s05 · Archimedes ---------- */
+#s05-q { top: 465px; font-size: 150px; }
+#s05-q .qm { display: inline-block; margin-left: 0.06em; color: var(--accent); opacity: 0.45; }
+.kick { position: absolute; left: 120px; top: 104px; font-size: 36px; font-weight: 600; line-height: 1; white-space: nowrap; }
+.rowlbl { position: absolute; left: 1120px; font-size: 34px; font-weight: 500; line-height: 1; color: var(--muted); white-space: nowrap; }
+#s05-rin { top: 244px; }
+#s05-rout { top: 434px; }
+.rowval { position: absolute; left: 1120px; display: flex; font-size: 80px; font-weight: 700; line-height: 1; white-space: nowrap; }
+#s05-vin { top: 290px; }
+#s05-vout { top: 480px; }
+.nl { position: absolute; top: 704px; width: 80px; margin-left: -40px; text-align: center; font-size: 38px; font-weight: 600; line-height: 1; color: var(--muted); }
+#s05-l3 { left: 1120px; }
+#s05-l4 { left: 1760px; }
+#s05-pim { position: absolute; left: 0; top: 606px; width: 60px; margin-left: -30px; text-align: center; font-size: 48px; font-weight: 700; line-height: 1; }
+#s05-res { position: absolute; left: 1120px; top: 792px; display: flex; font-size: 76px; font-weight: 700; line-height: 1; white-space: nowrap; }
+
+/* ---------- s06 · endless digits ---------- */
+#s06-wall {
+  position: absolute; left: -20px; top: -10px; width: 1960px; height: 1100px; overflow: hidden;
+  font-size: 30px; line-height: 44px; letter-spacing: 0.18em; font-weight: 500;
+  word-break: break-all; font-variant-numeric: tabular-nums; color: var(--fg);
+}
+#s06-tw { position: absolute; left: 0; top: 470px; width: 1920px; height: 220px; transform-origin: 0% 50%; }
+#s06-tick { position: absolute; left: 0; top: 0; font-size: 120px; font-weight: 600; line-height: 1; letter-spacing: 0.02em; white-space: nowrap; }
+#s06-line { position: absolute; left: 0; top: 150px; width: 1920px; height: 6px; background: var(--accent); transform-origin: 0% 50%; }
+.edgefade {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, #0a0e17 0%, rgba(10, 14, 23, 0) 11%, rgba(10, 14, 23, 0) 89%, #0a0e17 100%);
+}
+#s06-rep { position: absolute; left: 0; width: 1920px; top: 250px; text-align: center; font-size: 64px; font-weight: 500; line-height: 1.2; color: var(--muted); white-space: nowrap; }
+#s06-rep .g { position: relative; display: inline-block; color: var(--fg); --u: 0; }
+#s06-rep .g::after {
+  content: ''; position: absolute; left: 0.04em; right: 0.04em; bottom: -0.1em; height: 5px; border-radius: 3px;
+  background: var(--accent-2); transform: scaleX(var(--u)); transform-origin: left;
+}
+#s06-count { position: absolute; left: 0; width: 1920px; top: 420px; text-align: center; font-size: 150px; font-weight: 800; line-height: 1; letter-spacing: -0.01em; }
+#s06-unit { position: absolute; left: 0; width: 1920px; top: 604px; text-align: center; font-size: 52px; font-weight: 600; line-height: 1; }
+#s06-greek {
+  position: absolute; left: 0; width: 1920px; top: 430px;
+  display: flex; justify-content: center; align-items: flex-start;
+  font-size: 150px; font-weight: 500; line-height: 1.3; white-space: nowrap;
+}
+#s06-gpi { display: inline-block; transform-origin: 50% 57%; }
+#s06-grest { display: inline-block; overflow: hidden; white-space: nowrap; }
+#s06-mean { position: absolute; left: 0; width: 1920px; top: 660px; text-align: center; font-size: 48px; font-weight: 600; line-height: 1; color: var(--muted); }
+
+/* ---------- s07 · area ---------- */
+#s07-cam { transform-origin: 960px 470px; }
+#s07-area { position: absolute; left: 0; width: 1920px; top: 438px; text-align: center; font-size: 64px; font-weight: 700; line-height: 1; }
+#s07-lr { position: absolute; left: 400px; width: 170px; top: 448px; text-align: right; font-size: 44px; font-weight: 700; line-height: 1; }
+#s07-tl { position: absolute; left: 560px; top: 262px; width: 800px; height: 50px; font-size: 44px; font-weight: 700; line-height: 1; }
+#s07-tl .alt { width: 100%; text-align: center; }
+#s07-eq { top: 770px; font-size: 72px; }
+#s07-slot { width: 331px; }
+
+/* ---------- s08 · close ---------- */
+#s08-eq { top: 760px; font-size: 88px; }
+#s08-pi {
+  position: absolute; left: 0; width: 1920px; top: 352px;
+  text-align: center; font-size: 200px; font-weight: 600; line-height: 1; transform-origin: 50% 59%;
+}
+#s08-digits { position: absolute; left: 528px; width: 900px; top: 752px; font-size: 56px; font-weight: 600; line-height: 1; letter-spacing: 0.04em; white-space: nowrap; }
+#s08-title { position: absolute; left: 0; width: 1920px; top: 852px; text-align: center; font-size: 34px; font-weight: 500; line-height: 1; letter-spacing: 0.04em; color: var(--muted); }
